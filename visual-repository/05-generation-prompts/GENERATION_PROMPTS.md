@@ -1,4 +1,5 @@
 # Generation Prompts — Kurzgesagt Style
+
 **Style locked:** Kurzgesagt-adapted for Trulo brand palette
 **Use with:** Midjourney v6+, Adobe Firefly, DALL-E 3, Stable Diffusion XL
 **Video tools:** Runway Gen-3, Kling AI, Luma Dream Machine
@@ -18,6 +19,7 @@ transparent background PNG, Trulo health brand Indian aesthetic
 ```
 
 For video prompts, use this tail instead:
+
 ```
 Kurzgesagt-inspired cinematic biological animation, deep warm dark background (#0D0805),
 bold warm color fills, rounded organic forms, soft amber glow, smooth fluid motion,
@@ -30,6 +32,7 @@ vertical 9:16 composition, warm saffron and terracotta palette
 ## CATEGORY 1 — ORGAN PROMPTS
 
 ### 1.1 Pancreas — Healthy (Active State)
+
 ```
 Kurzgesagt animation style illustration of a human pancreas, warm salmon-terracotta
 color (#C4704A base, #F0C4A0 highlight, #8B3A1A depth), rounded slightly-simplified
@@ -41,6 +44,7 @@ NOT photorealistic, NOT clinical, transparent cutout quality
 ```
 
 ### 1.1b Pancreas — Fatigued (Overworked State)
+
 ```
 Kurzgesagt animation style illustration of a fatigued human pancreas, same rounded
 anatomical form as healthy version but desaturated to muted warm grey-salmon tones,
@@ -51,6 +55,7 @@ paired visual contrast to the healthy pancreas version
 ```
 
 ### 1.2 Liver
+
 ```
 Kurzgesagt animation style illustration of a human liver, deep mahogany and terracotta
 color palette (#8B3A1A base, #C4704A highlight, #5C1A0A deep shadow), large prominent
@@ -61,6 +66,7 @@ educational biology illustration style, NOT clinical anatomy plate
 ```
 
 ### 1.3 Stomach — Interior Cross-Section
+
 ```
 Kurzgesagt animation style illustration of human stomach in cross-section showing interior
 chamber, warm peach-terracotta outer wall (#D4896A), cream-linen interior (#F0C4A0),
@@ -71,6 +77,7 @@ educational digestive biology illustration, NOT clinical
 ```
 
 ### 1.4 Small Intestine — Absorption View
+
 ```
 Kurzgesagt animation style illustration of small intestine cross-section showing
 glucose absorption through villi, warm cream outer wall (#E8C4A0), villi shown as
@@ -82,6 +89,7 @@ educational biology illustration
 ```
 
 ### 1.5 Blood Vessel — Interior Cross-Section (Flowing)
+
 ```
 Kurzgesagt animation style illustration of a blood vessel interior cross-section,
 warm crimson-red vessel walls (#C0392B outer, #E8735A inner glow), smooth rounded
@@ -92,6 +100,7 @@ background, educational biology illustration, cinematic biological feel, NOT cli
 ```
 
 ### 1.6 Heart
+
 ```
 Kurzgesagt animation style illustration of a human heart showing four chambers,
 deep rose-red warm palette (#B03020 base, #D4603A highlight, #8B1A0A depth),
@@ -102,6 +111,7 @@ background, flat bold fills, educational biology illustration
 ```
 
 ### 1.7 Brain
+
 ```
 Kurzgesagt animation style illustration of a human brain, warm pink-grey palette
 (#C8A090 base, #E8C8B8 highlight, #8B5040 depth), walnut-shaped rounded lobes,
@@ -111,6 +121,7 @@ deep warm dark background, 2–3 tonal steps only, educational biology illustrat
 ```
 
 ### 1.8 Kidney
+
 ```
 Kurzgesagt animation style illustration of a human kidney, warm rose-terracotta bean shape,
 renal cortex and medulla visible as 2 tonal zones, renal artery and vein as warm-colored
@@ -123,6 +134,7 @@ flat bold fill, educational biology illustration
 ## CATEGORY 2 — MOLECULE PROMPTS
 
 ### 2.1 Glucose Particle — Single / Resting
+
 ```
 Kurzgesagt animation style illustration of a glucose molecule as a biological particle,
 warm golden amber color (#FFD580 fill, #FFF0C0 bright highlight, #D4891A shadow),
@@ -133,6 +145,7 @@ feels like a small warm sun, educational biology particle illustration,
 ```
 
 ### 2.2 Glucose Particles — Spike State (Many, Crowded)
+
 ```
 Kurzgesagt animation style illustration of hundreds of glucose particles flooding
 a blood vessel interior, glowing golden amber particles (#FFD580) at high density,
@@ -144,6 +157,7 @@ illustration, dramatic and striking without being clinical or disturbing
 ```
 
 ### 2.3 Insulin Molecule
+
 ```
 Kurzgesagt animation style illustration of an insulin molecule as a biological particle,
 warm sage-green color (#7BC8A4 fill, #B4E8CC highlight, #2D6B5E depth),
@@ -154,6 +168,7 @@ moving with intention (directional character), deep warm dark background,
 ```
 
 ### 2.4 Allulose Crystal — Trulo Product Element
+
 ```
 Kurzgesagt animation style illustration of an allulose molecule as a biological particle,
 brilliant white-cool crystalline form (#F0F0FF fill, #FFFFFF highlight, #D0D0E8 depth),
@@ -165,6 +180,7 @@ educational biology illustration, Trulo product visual identity
 ```
 
 ### 2.5 Sunfiber Gel — Trulo Product Element
+
 ```
 Kurzgesagt animation style illustration of dietary fiber forming a gel inside the
 small intestine cross-section, warm amber translucent mesh texture (#C8A878 fill
@@ -176,6 +192,7 @@ educational biology illustration, Trulo brand visual
 ```
 
 ### 2.6 Beta Cell Releasing Insulin
+
 ```
 Kurzgesagt animation style illustration of a pancreatic beta cell releasing insulin,
 warm orange-salmon cell body (#D4895A fill, #F0C4A0 highlight), interior shows
@@ -187,6 +204,7 @@ educational biology illustration
 ```
 
 ### 2.7 Insulin-Resistant Cell
+
 ```
 Kurzgesagt animation style illustration of an insulin-resistant cell, same rounded
 cell form as healthy cell but receptor appears blocked/unresponsive, insulin molecules
@@ -198,6 +216,7 @@ contrasts strongly with the healthy beta cell illustration, educational biology 
 ```
 
 ### 2.8 GLUT4 Transporter — Open vs Closed
+
 ```
 Kurzgesagt animation style illustration showing GLUT4 glucose transporter protein
 in cell membrane, two states side by side: LEFT — GLUT4 closed (no insulin present),
@@ -212,6 +231,7 @@ educational biology mechanism illustration, lock-and-key visual language
 ## CATEGORY 3 — BODY / SCENE PROMPTS
 
 ### 3.1 Full Body Silhouette — Healthy
+
 ```
 Kurzgesagt animation style illustration of a semi-transparent human body silhouette
 showing glowing internal organs, linen-warm outline of the body at 30% opacity,
@@ -223,6 +243,7 @@ educational health illustration, no explicit anatomy, elegant not clinical
 ```
 
 ### 3.2 Full Body Silhouette — Energy Crash
+
 ```
 Kurzgesagt animation style illustration of same human body silhouette but dim and low-energy,
 organ glow absent or very faint, pancreas area particularly muted,
@@ -232,6 +253,7 @@ same flat Kurzgesagt illustration style, paired contrast to healthy silhouette
 ```
 
 ### 3.3 Bloodstream POV — Glucose Flood
+
 ```
 Kurzgesagt animation style first-person point-of-view inside a blood vessel during
 a glucose spike, vessel walls in warm crimson-rose framing the shot,
@@ -244,6 +266,7 @@ vertical 9:16 composition
 ```
 
 ### 3.4 Pancreas Scene — Insulin Release
+
 ```
 Kurzgesagt animation style cinematic scene of pancreas releasing insulin,
 pancreas centered, warm salmon-terracotta color with active golden glow pulsing,
@@ -258,6 +281,7 @@ educational biology science storytelling, Kurzgesagt cinematic quality, no gore
 ## CATEGORY 4 — PROCESS DIAGRAM PROMPTS (Infographic Style)
 
 ### 4.1 Blood Sugar Spike Curve
+
 ```
 Kurzgesagt animation style data visualization of a blood glucose spike curve,
 bold warm saffron (#D4891A) smooth line on deep dark background,
@@ -271,6 +295,7 @@ For static/carousel version: replace deep dark background with linen (#F5E6C8),
 use warm brown (#2C1A0E) curve line, warm brown labels
 
 ### 4.2 GI Scale Visual
+
 ```
 Kurzgesagt animation style glycemic index scale, horizontal bar from 0–100,
 bold color zones: 0–55 warm sage-green (LOW GI — good), 56–69 golden amber (MEDIUM),
@@ -281,6 +306,7 @@ Poppins bold labels, deep dark OR linen background, Kurzgesagt educational style
 ```
 
 ### 4.3 Insulin Resistance — 3-Stage Progression
+
 ```
 Kurzgesagt animation style educational diagram showing insulin resistance progression,
 three panels left to right with bold warm arrow connecting them:
@@ -300,6 +326,7 @@ Kurzgesagt educational biology infographic style
 ```
 
 ### 4.4 Lock-and-Key — Insulin Mechanism
+
 ```
 Kurzgesagt animation style illustration of insulin-receptor lock-and-key mechanism,
 LEFT: insulin molecule (sage-green #7BC8A4 Y-shape) approaching a cell membrane,
@@ -312,6 +339,7 @@ three-step visual read, Poppins bold labels "1. Insulin arrives" "2. Receptor ac
 ```
 
 ### 4.5 Allulose vs Sugar — Metabolic Path Comparison
+
 ```
 Kurzgesagt animation style side-by-side metabolic pathway comparison,
 LEFT SIDE (SUGAR): titled "Regular Sugar" — sharp blood sugar spike curve in red-orange,
@@ -324,6 +352,7 @@ Kurzgesagt educational biology infographic
 ```
 
 ### 4.6 Sunfiber Mechanism — Slowing Glucose Absorption
+
 ```
 Kurzgesagt animation style before-and-after gut cross-section showing Sunfiber effect,
 TOP (WITHOUT FIBER): small intestine cross-section, glucose particles flooding rapidly
@@ -337,6 +366,7 @@ Poppins bold labels, Kurzgesagt educational biology infographic
 ---
 
 ## CATEGORY 5 — VIDEO SCENE PROMPTS
+
 *(For Runway Gen-3 / Kling / Luma Dream Machine)*
 
 The full shot-by-shot video prompts already exist in:
@@ -356,36 +386,42 @@ storytelling, no gore, no clinical 3D render, warm saffron terracotta palette
 ## GENERATION TOOLS
 
 ### Still Image
-| Tool | Kurzgesagt prompt notes | Settings |
-|---|---|---|
-| **Midjourney v6+** | Best for Kurzgesagt style. Add `--style raw` to avoid over-smoothing | `--ar 1:1` organs; `--ar 9:16` scenes; `--no realistic, clinical, photograph` |
-| **Adobe Firefly** | Use "Illustration" style mode | Match to saffron/terracotta/linen; set "Flat illustration" style |
-| **DALL-E 3** | Good for process diagrams | Describe Kurzgesagt style explicitly in prompt |
-| **Stable Diffusion XL** | Use Kurzgesagt LoRA if available | Batch molecule/particle generation |
+
+
+| Tool                    | Kurzgesagt prompt notes                                              | Settings                                                                      |
+| ----------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| **Midjourney v6+**      | Best for Kurzgesagt style. Add `--style raw` to avoid over-smoothing | `--ar 1:1` organs; `--ar 9:16` scenes; `--no realistic, clinical, photograph` |
+| **Adobe Firefly**       | Use "Illustration" style mode                                        | Match to saffron/terracotta/linen; set "Flat illustration" style              |
+| **DALL-E 3**            | Good for process diagrams                                            | Describe Kurzgesagt style explicitly in prompt                                |
+| **Stable Diffusion XL** | Use Kurzgesagt LoRA if available                                     | Batch molecule/particle generation                                            |
+
 
 ### Video / Animation
-| Tool | Best for | Link |
-|---|---|---|
-| **Runway Gen-3** | Animate still organ assets into motion loops | https://runwayml.com/ |
-| **Kling AI** | Video from image — good smooth biological motion | https://klingai.com/ |
-| **Luma Dream Machine** | Organic fluid motion — molecules, bloodstream flow | https://lumalabs.ai/dream-machine |
-| **Pika 2.1** | Start/end anchor frame approach | Pairs from `my_files/trulo-allulose-video-prompts.txt` |
-| **Adobe After Effects** | Compositing stills + particle effects | Desktop |
-| **Canva Pro** | Animated carousels, simple story panels | https://www.canva.com/ |
-| **Iconscout Lottie** | Pre-built glucose metabolism loops (customize) | https://iconscout.com/lottie-animations/glucose-metabolism |
+
+
+| Tool                    | Best for                                           | Link                                                                                                                     |
+| ----------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| **Runway Gen-3**        | Animate still organ assets into motion loops       | [https://runwayml.com/](https://runwayml.com/)                                                                           |
+| **Kling AI**            | Video from image — good smooth biological motion   | [https://klingai.com/](https://klingai.com/)                                                                             |
+| **Luma Dream Machine**  | Organic fluid motion — molecules, bloodstream flow | [https://lumalabs.ai/dream-machine](https://lumalabs.ai/dream-machine)                                                   |
+| **Pika 2.1**            | Start/end anchor frame approach                    | Pairs from `my_files/trulo-allulose-video-prompts.txt`                                                                   |
+| **Adobe After Effects** | Compositing stills + particle effects              | Desktop                                                                                                                  |
+| **Canva Pro**           | Animated carousels, simple story panels            | [https://www.canva.com/](https://www.canva.com/)                                                                         |
+| **Iconscout Lottie**    | Pre-built glucose metabolism loops (customize)     | [https://iconscout.com/lottie-animations/glucose-metabolism](https://iconscout.com/lottie-animations/glucose-metabolism) |
+
 
 ---
 
 ## QUALITY CHECKLIST — Before Saving Any Generated Asset
 
-- [ ] Reads as Kurzgesagt illustration, not a clinical 3D render
-- [ ] Bold warm fills — no cold blue, no hospital grey
-- [ ] Rounded, organic forms — no sharp anatomical edges
-- [ ] Active elements have warm outer glow; passive elements don't
-- [ ] Dark background for video assets; linen for static
-- [ ] Max 3 tonal steps per element (base + highlight + shadow)
-- [ ] Outlines are warm brown (#2C1A0E), not black
-- [ ] Organ is anatomically recognizable — not a blob or symbol
-- [ ] Non-scientist finds it beautiful; scientist finds it credible
+- Reads as Kurzgesagt illustration, not a clinical 3D render
+- Bold warm fills — no cold blue, no hospital grey
+- Rounded, organic forms — no sharp anatomical edges
+- Active elements have warm outer glow; passive elements don't
+- Dark background for video assets; linen for static
+- Max 3 tonal steps per element (base + highlight + shadow)
+- Outlines are warm brown (#2C1A0E), not black
+- Organ is anatomically recognizable — not a blob or symbol
+- Non-scientist finds it beautiful; scientist finds it credible
 
 *Style locked: Kurzgesagt-adapted for Trulo. Last updated: May 25, 2026.*
