@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Talking Head Avatar — Production SOP | Trulo Foods</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3350;
+    --accent: #6c63ff;
+    --accent2: #00d4aa;
+    --accent3: #ff6b6b;
+    --text: #e8eaf0;
+    --muted: #8892aa;
+    --green: #4ade80;
+    --yellow: #fbbf24;
+    --red: #f87171;
+    --tag-bg: #1e2133;
+    --step-line: #2e3350;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #1a1d27 0%, #12152b 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 48px 32px;
+  }
+  .header-eye { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: .1em; font-weight: 700; margin-bottom: 8px; }
+  .header h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+  .header p { color: var(--muted); font-size: 14px; max-width: 640px; }
+  .header-meta { display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
+  .meta-item { font-size: 12px; color: var(--muted); }
+  .meta-item strong { color: var(--text); display: block; font-size: 13px; }
+
+  /* ── Nav ── */
+  nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    display: flex; gap: 0; overflow-x: auto;
+    position: sticky; top: 0; z-index: 50;
+  }
+  nav a {
+    color: var(--muted); padding: 13px 16px;
+    font-size: 12.5px; font-weight: 500;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap; display: block;
+  }
+  nav a:hover { color: var(--text); text-decoration: none; }
+  nav a.act { color: var(--accent2); border-color: var(--accent2); }
+
+  /* ── Layout ── */
+  main { max-width: 960px; margin: 0 auto; padding: 44px 32px 80px; }
+  section { margin-bottom: 64px; scroll-margin-top: 56px; }
+  .section-eye { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: .1em; font-weight: 700; margin-bottom: 10px; }
+  h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  h3 { font-size: 15px; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+  .section-sub { color: var(--muted); font-size: 13.5px; margin-bottom: 28px; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+  p { color: var(--muted); font-size: 14px; margin-bottom: 10px; }
+
+  /* ── Stack overview ── */
+  .stack-row {
+    display: grid; grid-template-columns: 1fr 40px 1fr 40px 1fr;
+    align-items: center; gap: 0;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px 28px; margin-bottom: 28px;
+  }
+  .stack-tool { text-align: center; }
+  .stack-icon { font-size: 28px; margin-bottom: 6px; }
+  .stack-name { font-size: 15px; font-weight: 800; margin-bottom: 2px; }
+  .stack-role { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing:.06em; }
+  .stack-price { font-size: 12px; color: var(--accent2); margin-top: 4px; font-weight: 600; }
+  .stack-arrow { text-align: center; font-size: 20px; color: var(--border); }
+
+  /* ── Phase headers ── */
+  .phase {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 20px; margin-bottom: 24px;
+  }
+  .phase-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--accent); color: #fff;
+    font-size: 14px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .phase-num.p2 { background: var(--accent2); }
+  .phase-num.p3 { background: var(--yellow); color: #111; }
+  .phase-num.p4 { background: var(--green); color: #111; }
+  .phase-title { font-weight: 700; font-size: 15px; }
+  .phase-sub { font-size: 12px; color: var(--muted); }
+  .phase-time {
+    margin-left: auto; font-size: 12px; font-weight: 700;
+    color: var(--muted); white-space: nowrap;
+  }
+
+  /* ── Steps ── */
+  .steps { list-style: none; padding-left: 0; }
+  .step {
+    display: flex; gap: 16px;
+    padding-bottom: 28px;
+    position: relative;
+  }
+  .step::before {
+    content: ''; position: absolute;
+    left: 15px; top: 32px; bottom: 0;
+    width: 2px; background: var(--step-line);
+  }
+  .step:last-child::before { display: none; }
+  .step-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--tag-bg); border: 2px solid var(--border);
+    color: var(--muted); font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .step-body { flex: 1; }
+  .step-title { font-size: 14.5px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+  .step-desc { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+  .step-tip {
+    background: rgba(108,99,255,0.08); border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0; padding: 8px 12px;
+    font-size: 12px; color: var(--text); margin-bottom: 8px;
+  }
+  .step-warn {
+    background: rgba(251,191,36,0.08); border-left: 3px solid var(--yellow);
+    border-radius: 0 6px 6px 0; padding: 8px 12px;
+    font-size: 12px; color: var(--text); margin-bottom: 8px;
+  }
+  .step-good {
+    background: rgba(74,222,128,0.08); border-left: 3px solid var(--green);
+    border-radius: 0 6px 6px 0; padding: 8px 12px;
+    font-size: 12px; color: var(--text); margin-bottom: 8px;
+  }
+
+  /* ── Code / settings blocks ── */
+  .settings-box {
+    background: #13161f; border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px 16px; font-size: 12.5px;
+    font-family: 'Courier New', monospace; color: var(--accent2);
+    margin-bottom: 10px; line-height: 1.9;
+  }
+  .settings-box .k { color: var(--muted); }
+  .settings-box .v { color: var(--accent2); }
+  .settings-box .c { color: #3d4560; }
+
+  /* ── Checklist ── */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 9px 0; border-bottom: 1px solid var(--border);
+    font-size: 13.5px;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .check-box {
+    width: 18px; height: 18px; border: 2px solid var(--border);
+    border-radius: 4px; flex-shrink: 0; margin-top: 2px;
+    background: var(--tag-bg);
+  }
+  .checklist li span { color: var(--text); }
+  .checklist li .note { color: var(--muted); font-size: 12px; margin-top: 2px; display: block; }
+  .cl-section { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; font-weight: 700; margin: 18px 0 8px; }
+
+  /* ── Cost table ── */
+  .cost-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .cost-table th {
+    background: var(--surface2); padding: 10px 14px;
+    text-align: left; font-size: 11px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .06em;
+    border-bottom: 1px solid var(--border);
+  }
+  .cost-table td { padding: 11px 14px; border-bottom: 1px solid var(--border); color: var(--text); }
+  .cost-table tr:last-child td { border-bottom: none; }
+  .cost-table .total td { font-weight: 700; color: var(--accent2); background: rgba(0,212,170,0.05); }
+  .cost-wrap { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+
+  /* ── Script template ── */
+  .script-box {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 24px 28px; font-size: 13px;
+  }
+  .script-row { display: grid; grid-template-columns: 120px 1fr; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .script-row:last-child { border-bottom: none; }
+  .script-label { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: .07em; font-weight: 700; padding-top: 2px; }
+  .script-val { color: var(--text); font-size: 13px; }
+  .script-val.placeholder { color: var(--muted); font-style: italic; }
+
+  /* ── Callout ── */
+  .callout {
+    background: rgba(0,212,170,0.07); border: 1px solid rgba(0,212,170,0.25);
+    border-radius: 10px; padding: 16px 20px; margin: 20px 0;
+  }
+  .callout.warn { background: rgba(251,191,36,0.07); border-color: rgba(251,191,36,0.3); }
+  .callout.info { background: rgba(108,99,255,0.07); border-color: rgba(108,99,255,0.3); }
+  .callout-head { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--accent2); margin-bottom: 6px; }
+  .callout.warn .callout-head { color: var(--yellow); }
+  .callout.info .callout-head { color: var(--accent); }
+  .callout p { color: var(--text); font-size: 13px; margin: 0; }
+
+  /* ── Grid helpers ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .box {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px 20px;
+  }
+  .box h4 { font-size: 13px; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+  .box ul { list-style: none; }
+  .box ul li { font-size: 12.5px; color: var(--muted); padding: 4px 0; display: flex; gap: 8px; align-items: flex-start; }
+  .box ul li::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+
+  /* ── Quick ref ── */
+  .qr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .qr-card {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px 16px;
+  }
+  .qr-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; font-weight: 700; margin-bottom: 4px; }
+  .qr-val { font-size: 13px; font-weight: 700; color: var(--text); }
+  .qr-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  @media (max-width: 700px) {
+    .header { padding: 24px 18px; }
+    main { padding: 24px 14px 60px; }
+    nav { padding: 0 14px; }
+    .stack-row { grid-template-columns: 1fr; }
+    .stack-arrow { transform: rotate(90deg); }
+    .two-col, .qr-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ HEADER ═══════════════════════════════ -->
+<div class="header">
+  <div class="header-eye">Standard Operating Procedure</div>
+  <h1>Talking Head Avatar — Video Production SOP</h1>
+  <p>Step-by-step workflow for producing AI talking head avatar videos at Trulo Foods using ElevenLabs + HeyGen.</p>
+  <div class="header-meta">
+    <div class="meta-item"><strong>Version</strong> 1.0 · May 2026</div>
+    <div class="meta-item"><strong>Stack</strong> ElevenLabs + HeyGen</div>
+    <div class="meta-item"><strong>Monthly cost</strong> ~$35 / mo (entry)</div>
+    <div class="meta-item"><strong>Time per video</strong> ~45–90 min end-to-end</div>
+    <div class="meta-item"><strong>Related doc</strong> <a href="index.html">Research Report →</a></div>
+  </div>
+</div>
+
+<nav>
+  <a href="#stack" class="act">Stack</a>
+  <a href="#setup">Setup</a>
+  <a href="#preprod">Pre-Production</a>
+  <a href="#voice">Voice (ElevenLabs)</a>
+  <a href="#avatar">Avatar (HeyGen)</a>
+  <a href="#postprod">Post & Publish</a>
+  <a href="#qa">QA Checklist</a>
+  <a href="#cost">Cost Tracker</a>
+  <a href="#quickref">Quick Ref</a>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════ STACK ═══════════════════════════════ -->
+<section id="stack">
+  <div class="section-eye">Overview</div>
+  <h2>The Production Stack</h2>
+  <p class="section-sub">Two tools, one pipeline. ElevenLabs handles voice; HeyGen handles the avatar and lip-sync. Keeping them separate avoids HeyGen's accent drift issue on cloned voices.</p>
+
+  <div class="stack-row">
+    <div class="stack-tool">
+      <div class="stack-icon">✍️</div>
+      <div class="stack-name">Script</div>
+      <div class="stack-role">Google Docs / Notion</div>
+      <div class="stack-price">Free</div>
+    </div>
+    <div class="stack-arrow">→</div>
+    <div class="stack-tool">
+      <div class="stack-icon">🎙️</div>
+      <div class="stack-name">ElevenLabs</div>
+      <div class="stack-role">Voice generation</div>
+      <div class="stack-price">$11 / mo (Creator)</div>
+    </div>
+    <div class="stack-arrow">→</div>
+    <div class="stack-tool">
+      <div class="stack-icon">🎬</div>
+      <div class="stack-name">HeyGen</div>
+      <div class="stack-role">Avatar + lip-sync + export</div>
+      <div class="stack-price">$24 / mo (Creator)</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-head">Why this order matters</div>
+    <p>HeyGen can generate its own voice, but cloned voices drift toward an American inflection. By generating audio in ElevenLabs first and uploading it to HeyGen, the avatar lip-syncs to <em>your</em> audio — the Indian English accent stays locked exactly as recorded. Never use HeyGen's built-in voice clone for Indian English.</p>
+  </div>
+
+  <div class="two-col">
+    <div class="box">
+      <h4>🎙️ ElevenLabs — what you use it for</h4>
+      <ul>
+        <li>Clone a branded Indian English voice (one-time setup)</li>
+        <li>Generate voiceover audio for each video</li>
+        <li>Fine-tune pace, pauses, and pronunciation</li>
+        <li>Export as MP3 or WAV</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h4>🎬 HeyGen — what you use it for</h4>
+      <ul>
+        <li>Choose or build the on-screen avatar</li>
+        <li>Upload the ElevenLabs audio</li>
+        <li>Let HeyGen lip-sync the avatar to that audio</li>
+        <li>Set background, add captions, export final video</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr/>
+
+<!-- ═══════════════════════════════ SETUP ═══════════════════════════════ -->
+<section id="setup">
+  <div class="section-eye">One-time setup</div>
+  <h2>Account & Tool Setup</h2>
+  <p class="section-sub">Do this once before your first production. Takes ~2–3 hours total.</p>
+
+  <div class="phase">
+    <div class="phase-num">A</div>
+    <div>
+      <div class="phase-title">ElevenLabs Setup</div>
+      <div class="phase-sub">Account · Voice clone · Voice settings</div>
+    </div>
+    <div class="phase-time">~60 min</div>
+  </div>
+
+  <ul class="steps">
+    <li class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Create ElevenLabs account &amp; subscribe to Creator plan</div>
+        <div class="step-desc">Go to <a href="https://elevenlabs.io" target="_blank">elevenlabs.io</a> → Sign up → Upgrade to Creator ($11/mo). This unlocks Professional Voice Cloning, 100,000 credits/mo, and 192 kbps audio quality.</div>
+        <div class="step-tip">💡 The free tier (10,000 credits ≈ 10 min) is enough for initial experimentation, but Professional Voice Cloning requires Creator or above.</div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Record your voice sample for cloning</div>
+        <div class="step-desc">Record a clean audio sample of the person whose voice will represent Trulo Foods. ElevenLabs needs 1–5 minutes of high-quality audio. This should be the brand's spokesperson voice — Indian English, conversational-professional tone.</div>
+        <div class="settings-box">
+          <span class="c"># Recording spec</span><br/>
+          <span class="k">Mic:</span> <span class="v">Any condenser mic or iPhone in a quiet room</span><br/>
+          <span class="k">Format:</span> <span class="v">MP3 or WAV, 44.1 kHz, no background noise</span><br/>
+          <span class="k">Length:</span> <span class="v">2–5 minutes of continuous natural speech</span><br/>
+          <span class="k">Content:</span> <span class="v">Read a product description or brand story aloud — varied sentences</span><br/>
+          <span class="k">Avoid:</span> <span class="v">Music, echo, plosives (use a pop filter or move back from mic)</span>
+        </div>
+        <div class="step-warn">⚠️ Do NOT use music, background sound, or over-processed audio in the training sample. ElevenLabs will clone those artifacts too.</div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Create the Professional Voice Clone in ElevenLabs</div>
+        <div class="step-desc">Voices → Add a new voice → Professional Voice Clone → Upload your recording. Name the voice something like <em>"Trulo — Priya (Indian EN)"</em>. Training takes 15–30 min.</div>
+        <div class="settings-box">
+          <span class="c"># Recommended voice settings after cloning</span><br/>
+          <span class="k">Stability:</span> <span class="v">55–65</span> <span class="c">  (lower = more expressive, higher = more consistent)</span><br/>
+          <span class="k">Similarity boost:</span> <span class="v">75–80</span> <span class="c">  (how closely it mirrors the clone)</span><br/>
+          <span class="k">Style exaggeration:</span> <span class="v">20–30</span> <span class="c">  (subtle warmth without over-acting)</span><br/>
+          <span class="k">Speaker boost:</span> <span class="v">ON</span> <span class="c">  (boosts similarity for short texts)</span>
+        </div>
+        <div class="step-tip">💡 Save these settings as the default for this voice. You can always adjust per-video, but having a baseline prevents drift across episodes.</div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Test the voice clone with a 30-second sample script</div>
+        <div class="step-desc">Type a product sentence into the ElevenLabs Studio and generate. Listen for: natural Indian English cadence, correct stress patterns, no robotic pauses. Adjust Stability/Style until it sounds right. Save a reference audio file.</div>
+        <div class="step-good">✅ Pass criteria: The voice sounds like a confident, warm Indian English speaker. Stress on the right syllables. No American vowel shifts.</div>
+      </div>
+    </li>
+  </ul>
+
+  <div class="phase" style="margin-top:8px;">
+    <div class="phase-num p2">B</div>
+    <div>
+      <div class="phase-title">HeyGen Setup</div>
+      <div class="phase-sub">Account · Avatar selection or creation · Brand defaults</div>
+    </div>
+    <div class="phase-time">~60 min</div>
+  </div>
+
+  <ul class="steps">
+    <li class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-title">Create HeyGen account &amp; subscribe to Creator plan</div>
+        <div class="step-desc">Go to <a href="https://heygen.com" target="_blank">heygen.com</a> → Sign up → Creator ($24/mo annual). This gives 200 generative credits/mo ≈ 10 min of Avatar IV video, watermark-free exports, and custom avatar creation.</div>
+        <div class="step-tip">💡 Use the 3-video free tier first to test your workflow before subscribing.</div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <div class="step-title">Choose your avatar approach</div>
+        <div class="step-desc">Two options depending on budget and brand intent:</div>
+        <div class="two-col" style="margin: 10px 0;">
+          <div class="box">
+            <h4>Option A — Stock Avatar (Faster, cheaper)</h4>
+            <ul>
+              <li>Browse HeyGen's 1,100+ stock avatars</li>
+              <li>Filter: Female / South Asian appearance / Professional</li>
+              <li>Pick one that feels aligned with Trulo Foods</li>
+              <li>Cost: Included in Creator plan</li>
+              <li>Best for: Starting out, testing formats</li>
+            </ul>
+          </div>
+          <div class="box">
+            <h4>Option B — Custom Avatar (Recommended long-term)</h4>
+            <ul>
+              <li>Record a 2–5 min "consent video" of the spokesperson</li>
+              <li>Upload to HeyGen Avatar Studio → train custom avatar</li>
+              <li>Creates a digital twin of your actual spokesperson</li>
+              <li>Cost: Included in Creator plan for basic custom avatar</li>
+              <li>Best for: Brand consistency, spokesperson identity</li>
+            </ul>
+          </div>
+        </div>
+        <div class="step-warn">⚠️ For a custom avatar, the spokesperson must record a verbal consent statement at the start of the video: <em>"I, [name], consent to HeyGen creating an AI avatar in my likeness for use by Trulo Foods."</em></div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <div class="step-title">Set up a Brand Template in HeyGen</div>
+        <div class="step-desc">Create a reusable video template so every video starts with consistent settings — no manual re-setup each time.</div>
+        <div class="settings-box">
+          <span class="c"># HeyGen template defaults for Trulo Foods</span><br/>
+          <span class="k">Aspect ratio:</span> <span class="v">9:16</span> <span class="c">  (Reels/Shorts primary)</span><br/>
+          <span class="k">Also save:</span> <span class="v">16:9</span> <span class="c">  (YouTube / website embed)</span><br/>
+          <span class="k">Background:</span> <span class="v">Clean gradient (warm cream / off-white) OR brand-branded BG image</span><br/>
+          <span class="k">Avatar position:</span> <span class="v">Centre frame, slightly right of middle</span><br/>
+          <span class="k">Captions:</span> <span class="v">ON by default — white text, black outline, bottom-third</span><br/>
+          <span class="k">Resolution:</span> <span class="v">1080p</span><br/>
+          <span class="k">Brand watermark:</span> <span class="v">Trulo logo top-right (upload once)</span>
+        </div>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<hr/>
+
+<!-- ═══════════════════════════════ PRE-PRODUCTION ═══════════════════════════════ -->
+<section id="preprod">
+  <div class="section-eye">Phase 1</div>
+  <div class="phase">
+    <div class="phase-num">1</div>
+    <div>
+      <div class="phase-title">Pre-Production</div>
+      <div class="phase-sub">Brief → Script → Review → Approve</div>
+    </div>
+    <div class="phase-time">20–30 min per video</div>
+  </div>
+
+  <ul class="steps">
+    <li class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Define the video brief</div>
+        <div class="step-desc">Before writing a word, answer these five questions. Keep a brief doc per video.</div>
+        <div class="script-box" style="margin:10px 0;">
+          <div class="script-row"><span class="script-label">Video type</span><span class="script-val placeholder">Product explainer / Social ad / Brand story / Recipe tip / Ingredient spotlight</span></div>
+          <div class="script-row"><span class="script-label">Platform</span><span class="script-val placeholder">Instagram Reels · YouTube Shorts · YouTube long-form · Website embed</span></div>
+          <div class="script-row"><span class="script-label">Target length</span><span class="script-val placeholder">30 sec · 60 sec · 90 sec · 3 min</span></div>
+          <div class="script-row"><span class="script-label">One goal</span><span class="script-val placeholder">What is the single thing the viewer should know/do after watching?</span></div>
+          <div class="script-row"><span class="script-label">CTA</span><span class="script-val placeholder">Link in bio / Buy now / DM us / Comment below / Visit trulofoods.com</span></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Write the script using the Trulo template</div>
+        <div class="step-desc">Talking head scripts follow a strict structure. Write to time: ~130 words = 60 seconds at a natural Indian English pace.</div>
+        <div class="script-box">
+          <div class="script-row"><span class="script-label">HOOK (0–3 sec)</span><span class="script-val">1 punchy sentence that stops the scroll. State the problem or bold claim. <br/><em>e.g. "Most energy bars are just candy in disguise."</em></span></div>
+          <div class="script-row"><span class="script-label">SETUP (3–10 sec)</span><span class="script-val">Who you are / what this video is about. One sentence max.</span></div>
+          <div class="script-row"><span class="script-label">VALUE BODY (10–45 sec)</span><span class="script-val">The actual content. 2–3 points max. Each point = 1–2 sentences. Simple, conversational language. No jargon.</span></div>
+          <div class="script-row"><span class="script-label">PROOF (45–55 sec)</span><span class="script-val">One specific, credible detail — an ingredient, a stat, a real outcome. Builds trust.</span></div>
+          <div class="script-row"><span class="script-label">CTA (55–60 sec)</span><span class="script-val">One clear action. Tie it back to the hook. <br/><em>e.g. "Try Trulo — link in bio. Your body will thank you."</em></span></div>
+        </div>
+        <div class="step-tip">💡 Read the script aloud and time it. If it feels rushed, cut — don't speed up. The avatar will pace naturally at ~130 wpm. Also add pronunciation guides for any unusual product names: <em>[troo-loh]</em>.</div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Script review and sign-off</div>
+        <div class="step-desc">One person reviews for: factual accuracy, brand tone, claim compliance (no unsubstantiated health claims), and CTA clarity. Sign off in the brief doc before moving to production. Do NOT generate voice until the script is locked — re-generating wastes credits.</div>
+        <div class="step-warn">⚠️ Indian FSSAI rules: Do not make disease-prevention or cure claims (e.g., "cures diabetes"). Stick to: "high protein," "natural ingredients," "no added sugar." When in doubt, remove it.</div>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<hr/>
+
+<!-- ═══════════════════════════════ VOICE ═══════════════════════════════ -->
+<section id="voice">
+  <div class="section-eye">Phase 2</div>
+  <div class="phase">
+    <div class="phase-num p2">2</div>
+    <div>
+      <div class="phase-title">Voice Generation — ElevenLabs</div>
+      <div class="phase-sub">Script → Studio → Tweak → Export MP3</div>
+    </div>
+    <div class="phase-time">10–20 min per video</div>
+  </div>
+
+  <ul class="steps">
+    <li class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Open ElevenLabs Studio and select your voice clone</div>
+        <div class="step-desc">Go to <a href="https://elevenlabs.io/studio" target="_blank">elevenlabs.io/studio</a> → New Project → Select your saved Trulo voice clone from the voice library. Set the model to <strong>Multilingual V3</strong> for best Indian English output.</div>
+        <div class="settings-box">
+          <span class="k">Voice:</span> <span class="v">Trulo — [Name] (Indian EN)</span> <span class="c">  ← your saved clone</span><br/>
+          <span class="k">Model:</span> <span class="v">Eleven Multilingual v3</span><br/>
+          <span class="k">Output format:</span> <span class="v">MP3, 192 kbps</span>
+        </div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Paste the approved script and add SSML pauses</div>
+        <div class="step-desc">Paste the script. Add manual pauses using ElevenLabs' pause markers to ensure natural breathing between sections. This prevents the avatar from appearing to speak without pause for 60 seconds straight.</div>
+        <div class="settings-box">
+          <span class="c"># SSML pause markers in ElevenLabs</span><br/>
+          <span class="k">Short pause (comma equivalent):</span> <span class="v">&lt;break time="0.3s"/&gt;</span><br/>
+          <span class="k">Sentence pause:</span> <span class="v">&lt;break time="0.6s"/&gt;</span><br/>
+          <span class="k">Section transition:</span> <span class="v">&lt;break time="0.9s"/&gt;</span><br/>
+          <span class="c"># Or use ellipsis (...) in the text — ElevenLabs reads these as pauses</span>
+        </div>
+        <div class="step-tip">💡 Add a 0.5s pause right after the hook line. Viewers need a half-beat to register what they just heard before the next sentence lands.</div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Generate and review the voiceover</div>
+        <div class="step-desc">Click Generate. Listen to the full output. Check for: natural Indian English stress patterns, correct product name pronunciation, no awkward pauses or rushed sections, and emotional tone matching the script's intent.</div>
+        <div class="step-good">✅ Pass: Sounds like a real person. Warm, confident, clear. No robotic cadence.<br/>✅ Pass: Product names and brand name pronounced correctly.<br/>✅ Pass: Total duration matches target length (±5 sec).</div>
+        <div class="step-warn">⚠️ If pronunciation is off for a word, use ElevenLabs' phonetic spelling override or the built-in pronunciation dictionary. For "Trulo" enter <em>troo-loh</em>.</div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Export the final audio</div>
+        <div class="step-desc">Download → MP3, 192 kbps. Filename convention: <code>trulo_[content-type]_[YYYYMMDD]_v1.mp3</code> — e.g., <em>trulo_product-explainer_20260525_v1.mp3</em>. Save to the project folder. This file goes directly into HeyGen in the next phase.</div>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<hr/>
+
+<!-- ═══════════════════════════════ AVATAR ═══════════════════════════════ -->
+<section id="avatar">
+  <div class="section-eye">Phase 3</div>
+  <div class="phase">
+    <div class="phase-num p3">3</div>
+    <div>
+      <div class="phase-title">Avatar Production — HeyGen</div>
+      <div class="phase-sub">Audio upload → Lip-sync → Background → Captions → Export</div>
+    </div>
+    <div class="phase-time">15–25 min per video</div>
+  </div>
+
+  <ul class="steps">
+    <li class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Open HeyGen and load your Brand Template</div>
+        <div class="step-desc">Log in to <a href="https://app.heygen.com" target="_blank">app.heygen.com</a> → Video Studio → Open your saved Trulo Brand Template. This pre-loads the correct aspect ratio, background, avatar position, and caption settings.</div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Select your avatar</div>
+        <div class="step-desc">In the avatar panel, select your Trulo custom avatar (or your chosen stock avatar). Confirm the pose/framing looks correct in the preview. Use Avatar IV or V model — do not use older models.</div>
+        <div class="step-tip">💡 For product-close-up content, use the "upper body" framing variant — it allows more gestures and feels more dynamic than a tight head shot.</div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Upload the ElevenLabs audio and disable HeyGen's built-in voice</div>
+        <div class="step-desc">In the Audio panel → Upload Audio → select your exported MP3 from ElevenLabs. <strong>Important:</strong> Make sure HeyGen's own voice generation is set to "None / Upload Audio" — do not let HeyGen generate or blend its own voice. The lip-sync will now be driven entirely by your ElevenLabs audio.</div>
+        <div class="step-warn">⚠️ This is the most critical step. If you accidentally leave HeyGen voice on, it will generate a different voice and your Indian English accent will be replaced. Always verify the audio source in the preview before rendering.</div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Preview lip-sync accuracy</div>
+        <div class="step-desc">Use HeyGen's preview function to watch a 5–10 second clip of the avatar speaking your audio. Verify lip movements match the words — especially on Indian English vowel sounds (aa, ai, o). If sync looks off, try re-uploading the audio at a slightly higher volume (normalise to -3dB).</div>
+        <div class="step-good">✅ Pass: Lips close on stop consonants (p, b, m). Open on wide vowels (aa, a). No half-second lag between audio and lip movement.</div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-title">Set background and visual elements</div>
+        <div class="step-desc">Apply the background from your brand template. For social content, also consider:</div>
+        <div class="settings-box">
+          <span class="k">Background options:</span><br/>
+          <span class="v">  1. Solid brand colour (simplest, no distraction)</span><br/>
+          <span class="v">  2. Blurred kitchen / food scene (warm, on-brand)</span><br/>
+          <span class="v">  3. Gradient (off-white to warm cream — Trulo palette)</span><br/>
+          <span class="k">Overlays to add:</span><br/>
+          <span class="v">  • Trulo logo watermark (top-right corner, 60% opacity)</span><br/>
+          <span class="v">  • Product name text card (bottom-left, if product explainer)</span><br/>
+          <span class="v">  • CTA banner in last 5 seconds (e.g. "trulofoods.com")</span>
+        </div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <div class="step-title">Enable and style auto-captions</div>
+        <div class="step-desc">Captions → Auto-generate from audio → Review for any mis-transcriptions (product names, "Trulo") → Correct manually if needed. Style: white text, bold, with a subtle dark background for readability on any feed background.</div>
+        <div class="settings-box">
+          <span class="k">Caption style:</span> <span class="v">Bold white, 36–42px, bottom third</span><br/>
+          <span class="k">Background:</span> <span class="v">Semi-transparent dark pill</span><br/>
+          <span class="k">Max words per line:</span> <span class="v">5–6 words</span><br/>
+          <span class="k">Corrections to always make:</span> <span class="v">"trulo" → "Trulo", any product names</span>
+        </div>
+        <div class="step-tip">💡 ~85% of Instagram Reels are watched without sound. Captions are not optional — they are the primary read path for most viewers.</div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <div class="step-title">Render and download the final video</div>
+        <div class="step-desc">Click Render → 1080p → MP4. Rendering takes 2–5 minutes per minute of video. When done, download and filename using the convention: <code>trulo_[type]_[platform]_[YYYYMMDD]_v1.mp4</code></div>
+        <div class="settings-box">
+          <span class="c"># File naming examples</span><br/>
+          <span class="v">trulo_product-explainer_reels_20260525_v1.mp4</span><br/>
+          <span class="v">trulo_ingredient-story_shorts_20260601_v1.mp4</span><br/>
+          <span class="v">trulo_brand-story_youtube_20260610_v1.mp4</span>
+        </div>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<hr/>
+
+<!-- ═══════════════════════════════ POST-PRODUCTION ═══════════════════════════════ -->
+<section id="postprod">
+  <div class="section-eye">Phase 4</div>
+  <div class="phase">
+    <div class="phase-num p4">4</div>
+    <div>
+      <div class="phase-title">Post-Production &amp; Publishing</div>
+      <div class="phase-sub">QA review → Optional trim → Platform upload → Copy</div>
+    </div>
+    <div class="phase-time">10–20 min per video</div>
+  </div>
+
+  <ul class="steps">
+    <li class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Run the QA checklist (next section)</div>
+        <div class="step-desc">Watch the full video once end-to-end on a mobile screen. Use the QA checklist on the next section of this SOP. If anything fails, go back to HeyGen (for visual/sync issues) or ElevenLabs (for audio issues) and re-generate only the affected part.</div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Optional: Light trim in CapCut or InShot</div>
+        <div class="step-desc">HeyGen doesn't support trim edits after rendering. If you need to cut a pause at the start/end, or add a product B-roll cutaway, import the HeyGen MP4 into CapCut (free) and make the edit. Keep HeyGen output as the primary talking-head layer — don't recolour or filter the avatar's skin tone.</div>
+        <div class="step-tip">💡 One common edit: add a 0.5s static product shot at the very end, after the CTA, to let the image "land" before the video loops.</div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Write platform copy before uploading</div>
+        <div class="step-desc">Prepare caption copy, hashtags, and alt-text in a doc before opening the platform — reduces distracted ad-libbing. Use this structure:</div>
+        <div class="script-box">
+          <div class="script-row"><span class="script-label">Hook line</span><span class="script-val placeholder">First line mirrors the video hook — this is what shows in the feed before "more"</span></div>
+          <div class="script-row"><span class="script-label">Body (2–3 lines)</span><span class="script-val placeholder">Brief expansion of the video's key point. Human tone.</span></div>
+          <div class="script-row"><span class="script-label">CTA</span><span class="script-val placeholder">Single action: "Link in bio" / "DM 'TRULO' for 10% off"</span></div>
+          <div class="script-row"><span class="script-label">Hashtags</span><span class="script-val placeholder">5–8 relevant tags. Mix broad (#healthyfood) + niche (#cleaneating) + brand (#TruloFoods)</span></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Upload to platform</div>
+        <div class="settings-box">
+          <span class="k">Instagram Reels:</span> <span class="v">9:16, 1080×1920, MP4, max 90 sec for Reels. Add cover thumbnail.</span><br/>
+          <span class="k">YouTube Shorts:</span> <span class="v">9:16, 1080×1920, MP4, title ≤ 100 chars, include #Shorts in title.</span><br/>
+          <span class="k">YouTube long-form:</span> <span class="v">16:9, 1920×1080, MP4. Upload custom thumbnail.</span><br/>
+          <span class="k">LinkedIn:</span> <span class="v">Square (1:1) or 16:9. Add captions file or rely on auto-captions.</span>
+        </div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-title">Archive the project files</div>
+        <div class="step-desc">Save to a shared drive folder named <code>Trulo / Avatar Videos / [YYYY-MM] / [Video Name]</code> containing: the approved script doc, ElevenLabs MP3, HeyGen MP4, and published post URL. This makes repurposing and revision easy.</div>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<hr/>
+
+<!-- ═══════════════════════════════ QA CHECKLIST ═══════════════════════════════ -->
+<section id="qa">
+  <div class="section-eye">Quality Gate</div>
+  <h2>QA Checklist</h2>
+  <p class="section-sub">Run before every publish. Watch the video on a phone at full screen — the final viewer experience. If any box is unchecked, fix it before publishing.</p>
+
+  <div class="callout info">
+    <div class="callout-head">How to use this checklist</div>
+    <p>Print this page or copy it into Notion. One person runs through every item for each video. Fail = go back and fix. Every video must clear all items before it goes live.</p>
+  </div>
+
+  <div class="cl-section">🎙️ Audio</div>
+  <ul class="checklist">
+    <li><div class="check-box"></div><span>Voice sounds like natural Indian English — no American vowel shift or robotic cadence<span class="note">Listen on earphones, not speakers</span></span></li>
+    <li><div class="check-box"></div><span>Product name and brand name ("Trulo") pronounced correctly</span></li>
+    <li><div class="check-box"></div><span>Audio is clean — no background noise, hiss, or clipping</span></li>
+    <li><div class="check-box"></div><span>Pacing feels natural — pauses between sentences, not rushed</span></li>
+    <li><div class="check-box"></div><span>Volume is consistent throughout — no sudden loud or quiet sections</span></li>
+  </ul>
+
+  <div class="cl-section">👁️ Visual / Avatar</div>
+  <ul class="checklist">
+    <li><div class="check-box"></div><span>Lip-sync is accurate — lips open/close matches audio consonants and vowels<span class="note">Check at 1–2 specific words: "Trulo", "natural", "energy"</span></span></li>
+    <li><div class="check-box"></div><span>No visual glitches — no stuttering avatar frame, no frozen face, no pixelation</span></li>
+    <li><div class="check-box"></div><span>Avatar framing is correct — head centred, not cut off at top or side</span></li>
+    <li><div class="check-box"></div><span>Background looks clean and on-brand</span></li>
+    <li><div class="check-box"></div><span>Trulo logo watermark is visible but not intrusive</span></li>
+  </ul>
+
+  <div class="cl-section">📝 Captions</div>
+  <ul class="checklist">
+    <li><div class="check-box"></div><span>Captions are present and auto-synced throughout the entire video</span></li>
+    <li><div class="check-box"></div><span>All product names, brand names spelled correctly in captions<span class="note">Common error: "trulo" → fix to "Trulo"</span></span></li>
+    <li><div class="check-box"></div><span>Caption text is readable on both light and dark backgrounds</span></li>
+    <li><div class="check-box"></div><span>No caption overlaps with logo or CTA overlay</span></li>
+  </ul>
+
+  <div class="cl-section">📋 Content</div>
+  <ul class="checklist">
+    <li><div class="check-box"></div><span>Hook lands in first 3 seconds — compelling reason to keep watching</span></li>
+    <li><div class="check-box"></div><span>Script matches approved version — no unreviewd ad-libs</span></li>
+    <li><div class="check-box"></div><span>No unsubstantiated health claims (FSSAI compliance)</span></li>
+    <li><div class="check-box"></div><span>CTA is clear and appears in the final 5 seconds</span></li>
+    <li><div class="check-box"></div><span>Video duration matches target length (±5 sec)</span></li>
+  </ul>
+
+  <div class="cl-section">📐 Technical</div>
+  <ul class="checklist">
+    <li><div class="check-box"></div><span>Exported at 1080p — not 720p (free-tier default)</span></li>
+    <li><div class="check-box"></div><span>Aspect ratio matches target platform (9:16 for Reels/Shorts; 16:9 for YouTube)</span></li>
+    <li><div class="check-box"></div><span>No HeyGen watermark present (confirm Creator plan is active)</span></li>
+    <li><div class="check-box"></div><span>File size is reasonable for upload (&lt;500 MB for a 60-sec video)</span></li>
+  </ul>
+</section>
+
+<hr/>
+
+<!-- ═══════════════════════════════ COST TRACKER ═══════════════════════════════ -->
+<section id="cost">
+  <div class="section-eye">Budget</div>
+  <h2>Monthly Cost Tracker</h2>
+  <p class="section-sub">Entry-level stack. Upgrade triggers are listed — move to the next tier only when you hit the volume ceiling.</p>
+
+  <div class="cost-wrap" style="margin-bottom:24px;">
+    <table class="cost-table">
+      <thead>
+        <tr>
+          <th>Tool</th>
+          <th>Plan</th>
+          <th>Monthly cost</th>
+          <th>What you get</th>
+          <th>Upgrade trigger</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>ElevenLabs</strong></td>
+          <td>Creator</td>
+          <td>$11 / mo</td>
+          <td>100K credits ≈ ~90 min of audio · Pro voice clone · 192 kbps</td>
+          <td>Upgrade to Pro ($99) when producing >50 min of voiceover/mo</td>
+        </tr>
+        <tr>
+          <td><strong>HeyGen</strong></td>
+          <td>Creator</td>
+          <td>$24 / mo</td>
+          <td>200 gen credits ≈ 10 min of Avatar IV video · Custom avatar · No watermark</td>
+          <td>Upgrade to Pro ($99) when producing >10 min of avatar video/mo (~8–10 videos)</td>
+        </tr>
+        <tr>
+          <td><strong>CapCut</strong></td>
+          <td>Free</td>
+          <td>$0</td>
+          <td>Trim, basic cuts, product B-roll overlay</td>
+          <td>n/a — free tier sufficient</td>
+        </tr>
+        <tr class="total">
+          <td colspan="2"><strong>Total (entry)</strong></td>
+          <td><strong>~$35 / mo</strong></td>
+          <td colspan="2">Covers ~8–10 × 60-sec videos per month</td>
+        </tr>
+        <tr class="total">
+          <td colspan="2"><strong>Total (scaled)</strong></td>
+          <td><strong>~$198 / mo</strong></td>
+          <td colspan="2">ElevenLabs Pro $99 + HeyGen Pro $99 — covers ~50 min of avatar video/mo (~40–50 videos)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div class="box">
+      <h4>💰 Cost per 60-second video</h4>
+      <ul>
+        <li>Entry stack ($35/mo, 8 videos): <strong>~$4.40/video</strong></li>
+        <li>Scaled stack ($198/mo, 50 videos): <strong>~$3.96/video</strong></li>
+        <li>Traditional shoot equivalent: <strong>₹15,000–₹50,000 / video</strong></li>
+        <li>Saving vs. traditional: <strong>>95% cost reduction</strong></li>
+      </ul>
+    </div>
+    <div class="box">
+      <h4>📊 HeyGen credit math (Creator plan)</h4>
+      <ul>
+        <li>200 gen credits / month included</li>
+        <li>Avatar IV = 20 credits / minute</li>
+        <li>= 10 minutes of video / month</li>
+        <li>Extra credits: $15 / 300 credits (= 15 extra minutes)</li>
+        <li>Effective extra cost: $1 / extra minute</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr/>
+
+<!-- ═══════════════════════════════ QUICK REF ═══════════════════════════════ -->
+<section id="quickref">
+  <div class="section-eye">Quick Reference</div>
+  <h2>At-a-Glance Reference Card</h2>
+  <p class="section-sub">Pin this somewhere visible. The most-used numbers and settings.</p>
+
+  <div class="qr-grid">
+    <div class="qr-card">
+      <div class="qr-label">Script pace</div>
+      <div class="qr-val">~130 words</div>
+      <div class="qr-sub">= 60 seconds at natural Indian English pace</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">ElevenLabs model</div>
+      <div class="qr-val">Multilingual V3</div>
+      <div class="qr-sub">Best Indian English output. Always use this model.</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">ElevenLabs stability</div>
+      <div class="qr-val">55–65</div>
+      <div class="qr-sub">Similarity 75–80 · Style 20–30 · Speaker boost ON</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">HeyGen avatar model</div>
+      <div class="qr-val">Avatar IV / V</div>
+      <div class="qr-sub">Never use older models — quality is visibly worse</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">Reels / Shorts format</div>
+      <div class="qr-val">9:16 · 1080p</div>
+      <div class="qr-sub">MP4 · Captions ON · Max 60–90 sec for best reach</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">YouTube long-form</div>
+      <div class="qr-val">16:9 · 1080p</div>
+      <div class="qr-sub">MP4 · Custom thumbnail required</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">Voice file naming</div>
+      <div class="qr-val">trulo_[type]_[date]_v1.mp3</div>
+      <div class="qr-sub">e.g. trulo_product-explainer_20260525_v1.mp3</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">Video file naming</div>
+      <div class="qr-val">trulo_[type]_[platform]_[date]_v1.mp4</div>
+      <div class="qr-sub">e.g. trulo_product-explainer_reels_20260525_v1.mp4</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label">Monthly budget (entry)</div>
+      <div class="qr-val">~$35 / mo</div>
+      <div class="qr-sub">ElevenLabs $11 + HeyGen $24 · ~8–10 videos/mo</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:32px;">
+    <div class="callout-head">The golden rule of this workflow</div>
+    <p><strong>Always generate audio in ElevenLabs first. Always upload that audio to HeyGen. Never use HeyGen's own voice for Indian English.</strong> This single discipline is what keeps the accent, tone, and brand voice consistent across every video you produce.</p>
+  </div>
+
+  <div style="margin-top:32px; color:var(--muted); font-size:12px; text-align:center;">
+    Trulo Foods Internal · Talking Head Avatar SOP v1.0 · May 2026 ·
+    <a href="index.html">← Research Report</a>
+  </div>
+</section>
+
+</main>
+
+</body>
+</html>

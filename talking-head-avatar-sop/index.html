@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Talking Head Avatar — SOP Research (Trulo Foods)</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3350;
+    --accent: #6c63ff;
+    --accent2: #00d4aa;
+    --accent3: #ff6b6b;
+    --text: #e8eaf0;
+    --muted: #8892aa;
+    --green: #4ade80;
+    --yellow: #fbbf24;
+    --red: #f87171;
+    --tag-bg: #2a2d42;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; color: var(--accent2); }
+
+  /* Layout */
+  .header {
+    background: linear-gradient(135deg, #1a1d27 0%, #12152b 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 48px 32px;
+  }
+  .header-meta { color: var(--muted); font-size: 13px; margin-bottom: 8px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .header p { color: var(--muted); max-width: 680px; }
+  .header-pills { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+  .pill {
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .pill.accent { background: rgba(108,99,255,0.15); border-color: var(--accent); color: var(--accent); }
+
+  nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+  nav a {
+    color: var(--muted);
+    padding: 14px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    display: block;
+  }
+  nav a:hover { color: var(--text); text-decoration: none; border-color: var(--border); }
+  nav a.active { color: var(--accent); border-color: var(--accent); }
+
+  main { max-width: 1100px; margin: 0 auto; padding: 40px 32px 80px; }
+
+  /* Sections */
+  section { margin-bottom: 64px; scroll-margin-top: 60px; }
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label {
+    font-size: 11px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .section-desc { color: var(--muted); margin-bottom: 28px; font-size: 14px; }
+
+  h3 { font-size: 16px; font-weight: 600; margin-bottom: 12px; color: var(--text); }
+
+  /* Callout / recommendation box */
+  .callout {
+    background: rgba(0,212,170,0.07);
+    border: 1px solid rgba(0,212,170,0.3);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+  }
+  .callout.warn {
+    background: rgba(251,191,36,0.07);
+    border-color: rgba(251,191,36,0.3);
+  }
+  .callout-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent2);
+    margin-bottom: 8px;
+  }
+  .callout.warn .callout-title { color: var(--yellow); }
+  .callout p { font-size: 14px; color: var(--text); }
+
+  /* Cards */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+  .card-title { font-size: 15px; font-weight: 600; }
+  .badge {
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge.india { background: rgba(255,153,0,0.15); color: #ffaa00; border: 1px solid rgba(255,153,0,0.3); }
+  .badge.intl { background: rgba(108,99,255,0.15); color: var(--accent); border: 1px solid rgba(108,99,255,0.3); }
+  .badge.brand { background: rgba(0,212,170,0.15); color: var(--accent2); border: 1px solid rgba(0,212,170,0.3); }
+  .badge.news { background: rgba(248,113,113,0.15); color: var(--red); border: 1px solid rgba(248,113,113,0.3); }
+  .badge.edu { background: rgba(74,222,128,0.15); color: var(--green); border: 1px solid rgba(74,222,128,0.3); }
+  .card-meta { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .card p { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .tag {
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .tag.unique { border-color: rgba(108,99,255,0.4); color: var(--accent); }
+  .card-links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .btn-link {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    background: rgba(108,99,255,0.1);
+    border: 1px solid rgba(108,99,255,0.3);
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .btn-link:hover { background: rgba(108,99,255,0.2); text-decoration: none; }
+
+  /* Big comparison table */
+  .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  th {
+    background: var(--surface2);
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--border);
+  }
+  th.platform-col { font-size: 14px; color: var(--text); text-transform: none; }
+  td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .score {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .score.good { color: var(--green); }
+  .score.mid { color: var(--yellow); }
+  .score.bad { color: var(--red); }
+  .winner-badge {
+    display: inline-block;
+    background: rgba(0,212,170,0.15);
+    border: 1px solid rgba(0,212,170,0.4);
+    color: var(--accent2);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-left: 6px;
+  }
+  .platform-name { font-weight: 700; font-size: 15px; }
+
+  /* Traits analysis */
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .trait-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .trait-box h4 { font-size: 13px; font-weight: 700; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .trait-box ul { list-style: none; }
+  .trait-box ul li {
+    padding: 6px 0;
+    font-size: 13px;
+    color: var(--text);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .trait-box ul li:last-child { border-bottom: none; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 7px; }
+  .dot.green { background: var(--green); }
+  .dot.yellow { background: var(--yellow); }
+
+  /* Verdict box */
+  .verdict {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .verdict-item { }
+  .verdict-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; margin-bottom: 6px; }
+  .verdict-pick { font-size: 22px; font-weight: 800; color: var(--accent2); margin-bottom: 6px; }
+  .verdict-reason { font-size: 13px; color: var(--muted); }
+  .verdict-reason strong { color: var(--text); }
+
+  /* Type taxonomy */
+  .type-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+  .type-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .type-icon { font-size: 24px; margin-bottom: 8px; }
+  .type-name { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .type-desc { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .type-traits { display: flex; flex-wrap: wrap; gap: 4px; }
+  .type-trait { font-size: 11px; background: var(--tag-bg); border: 1px solid var(--border); border-radius: 4px; padding: 1px 7px; color: var(--muted); }
+
+  /* Voice table */
+  .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+  .voice-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .voice-card.winner { border-color: var(--accent2); }
+  .voice-name { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+  .voice-tagline { font-size: 12px; color: var(--muted); margin-bottom: 18px; }
+  .voice-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .voice-row:last-child { border-bottom: none; }
+  .voice-row-label { color: var(--muted); flex-shrink: 0; width: 140px; }
+  .voice-row-val { color: var(--text); text-align: right; }
+
+  /* Divider */
+  hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+  /* Breadcrumb */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 48px;
+    display: inline-block;
+    min-width: 280px;
+  }
+  .toc h4 { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .toc ol { list-style: none; counter-reset: toc; }
+  .toc ol li { counter-increment: toc; padding: 4px 0; font-size: 13px; }
+  .toc ol li::before { content: counter(toc) ". "; color: var(--muted); }
+
+  @media (max-width: 700px) {
+    .header { padding: 24px 20px; }
+    main { padding: 24px 16px 60px; }
+    nav { padding: 0 16px; }
+    .traits-grid, .voice-grid, .verdict { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-meta">Trulo Foods · Internal Research · May 2026</div>
+  <h1>Talking Head Avatar — SOP Research</h1>
+  <p>Platform evaluation, voice tool comparison, creator reference library, and content taxonomy for AI talking-head avatar adoption.</p>
+  <div class="header-pills">
+    <span class="pill accent">English-first</span>
+    <span class="pill">HeyGen · Synthesia · D-ID</span>
+    <span class="pill">ElevenLabs · Murf</span>
+    <span class="pill">India + International creators</span>
+  </div>
+</div>
+
+<nav>
+  <a href="#toc" class="active">Contents</a>
+  <a href="#recommendations">⭐ Picks</a>
+  <a href="#creators">Creators</a>
+  <a href="#types">Content Types</a>
+  <a href="#platforms">Platforms</a>
+  <a href="#voices">Voice Tools</a>
+  <a href="#similar">Similar Tools</a>
+</nav>
+
+<main>
+
+  <!-- TOC -->
+  <section id="toc">
+    <div class="toc">
+      <h4>Contents</h4>
+      <ol>
+        <li><a href="#recommendations">Top Picks (TL;DR)</a></li>
+        <li><a href="#creators">Creator Reference Library</a></li>
+        <li><a href="#types">Content Type Taxonomy</a></li>
+        <li><a href="#platforms">Platform Comparison: HeyGen · Synthesia · D-ID</a></li>
+        <li><a href="#voices">Voice Tool Comparison: ElevenLabs · Murf</a></li>
+        <li><a href="#similar">Similar & Adjacent Tools</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ─── RECOMMENDATIONS ─── -->
+  <section id="recommendations">
+    <div class="section-label">TL;DR · Top Picks</div>
+    <h2>Recommended Platform + Voice Tool</h2>
+    <p class="section-desc">Based on Indian-accent quality, lip-sync accuracy, cost, and fit for Trulo Foods' content needs.</p>
+
+    <div class="verdict">
+      <div class="verdict-item">
+        <div class="verdict-label">Avatar Platform</div>
+        <div class="verdict-pick">HeyGen</div>
+        <div class="verdict-reason">
+          Best-in-class lip-sync for Indian English, <strong>175+ language support</strong>, near-real-time turnaround, and social-media-native output (Reels, Shorts, ads). Avatar IV/V model passes the "is this real?" test for most viewers. Creator plan at <strong>$24/mo</strong> is the entry point — upgrade to Pro ($99) when volume demands it.
+        </div>
+      </div>
+      <div class="verdict-item">
+        <div class="verdict-label">Voice Tool</div>
+        <div class="verdict-pick">ElevenLabs</div>
+        <div class="verdict-reason">
+          Leads on Indian English naturalness (<strong>89.6% speech naturalness score</strong>), supports 11 Indian regional languages via Multilingual V3, and offers voice cloning from <strong>$11/mo</strong>. Far superior realism vs. Murf; pairs cleanly with HeyGen via audio upload.
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 20px;">
+      <div class="callout warn">
+        <div class="callout-title">Watch-out: HeyGen Accent Drift</div>
+        <p>When using HeyGen's built-in voice clone, users have reported the cloned voice drifting toward an American inflection mid-video. The workaround: <strong>generate the voiceover in ElevenLabs first</strong> (with your trained Indian English voice), then upload the audio to HeyGen and let it lip-sync to that. This combo gives you the best of both tools.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- ─── CREATOR REFERENCE LIBRARY ─── -->
+  <section id="creators">
+    <div class="section-label">§ 1 · Creator Reference Library</div>
+    <h2>Creators Making Talking Head Avatar Content</h2>
+    <p class="section-desc">Curated examples from India and internationally — across news, education, brand marketing, and faceless YouTube. All videos are in English or bilingual English.</p>
+
+    <div class="card-grid">
+
+      <!-- India Today / Sana -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">India Today — AI Anchor "Sana"</div>
+          <span class="badge india">🇮🇳 India · News</span>
+        </div>
+        <div class="card-meta">AajTak / India Today Group · Since 2023 · Broadcast + Social</div>
+        <p>India's most prominent AI news anchor. Sana delivers prime-time 9pm news, switches seamlessly between English and Hindi, wears traditional Indian attire, and has won the INMA 2024 Global Media Award. A next-gen avatar "Sutra" with real-time interaction was launched in 2026.</p>
+        <div class="tag-row">
+          <span class="tag unique">Cultural attire</span>
+          <span class="tag unique">Real-time interaction (Sutra)</span>
+          <span class="tag">Bilingual H+E</span>
+          <span class="tag">Broadcast-quality</span>
+          <span class="tag">Daily cadence</span>
+        </div>
+        <div class="card-links">
+          <a class="btn-link" href="https://www.youtube.com/shorts/qdDdu-o_mxs" target="_blank">▶ YouTube Short</a>
+          <a class="btn-link" href="https://www.youtube.com/playlist?list=PLPPKwCCueQ_BrKtsQVa5m6qBPJJ267M-O" target="_blank">📋 Full Playlist</a>
+          <a class="btn-link" href="https://www.instagram.com/aianchorsana/reel/C6byXklptgb/" target="_blank">📱 Instagram Reel</a>
+        </div>
+      </div>
+
+      <!-- OTV Lisa -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Odisha TV — AI Anchor "Lisa"</div>
+          <span class="badge india">🇮🇳 India · News</span>
+        </div>
+        <div class="card-meta">OTV (Odisha Television) · Launched July 2023 · Odia + English</div>
+        <p>India's first regional-language AI news anchor. Lisa is bilingual (Odia + English), used for daily news delivery. A research paper studying her YouTube audience engagement found significantly higher retention vs. human anchors on the channel. Benchmark for regional Indian AI presenter design.</p>
+        <div class="tag-row">
+          <span class="tag unique">Regional language pioneer</span>
+          <span class="tag unique">Academic engagement study</span>
+          <span class="tag">Bilingual Odia/English</span>
+          <span class="tag">Daily news format</span>
+        </div>
+        <div class="card-links">
+          <a class="btn-link" href="https://www.youtube.com/watch?v=k5NcpmQOu1g" target="_blank">▶ Launch Video</a>
+          <a class="btn-link" href="https://www.youtube.com/playlist?list=PLFYlC_Oei63AbISEhhTScnmEKHiFwcOHY" target="_blank">📋 AI Lisa Playlist</a>
+        </div>
+      </div>
+
+      <!-- Faceless Indian Ed-tech -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Indian Faceless Ed-Tech Channels</div>
+          <span class="badge india">🇮🇳 India · Education</span>
+        </div>
+        <div class="card-meta">YouTube · Multiple creators · 2024–2026</div>
+        <p>A wave of Indian education YouTube channels have adopted AI avatars as permanent on-screen hosts. Finance ("Finfluencer") channels dominate — they use a professional AI presenter to deliver SEBI-compliant market education. Over 75% of new Indian educational/infotainment YouTube channels launched in 2025-26 now use AI-led formats.</p>
+        <div class="tag-row">
+          <span class="tag unique">SEBI-compliant format</span>
+          <span class="tag unique">AI as recurring brand character</span>
+          <span class="tag">Hinglish delivery</span>
+          <span class="tag">High RPM niche</span>
+          <span class="tag">No on-camera talent cost</span>
+        </div>
+        <div class="card-links">
+          <a class="btn-link" href="https://www.truefan.ai/blogs/faceless-youtube-channel-ai-india-2026" target="_blank">📖 Context: Truefan</a>
+        </div>
+      </div>
+
+      <!-- Synthesia Brand Examples -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Synthesia — Brand Marketing Library</div>
+          <span class="badge intl">🌍 International · Brand</span>
+        </div>
+        <div class="card-meta">Synthesia.io · 1M+ users · Corporate + Marketing</div>
+        <p>Synthesia hosts 14 curated talking-head video examples covering product demos, onboarding, compliance training, and social ads — all using AI avatars. Used by enterprise teams for L&D, product explainers, and multilingual localization. Strong template library for understanding the range of content formats possible.</p>
+        <div class="tag-row">
+          <span class="tag unique">240+ stock avatars</span>
+          <span class="tag unique">1-click 160-language dub</span>
+          <span class="tag">Enterprise-grade</span>
+          <span class="tag">Training/L&D focus</span>
+          <span class="tag">Branded overlays</span>
+        </div>
+        <div class="card-links">
+          <a class="btn-link" href="https://www.synthesia.io/post/best-talking-head-video-examples" target="_blank">▶ 14 Examples</a>
+          <a class="btn-link" href="https://www.synthesia.io/video-templates" target="_blank">📋 250+ Templates</a>
+          <a class="btn-link" href="https://www.synthesia.io/post/marketing-video-examples" target="_blank">📖 Marketing Examples</a>
+        </div>
+      </div>
+
+      <!-- HeyGen Community -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">HeyGen — Creator Avatar Showcase</div>
+          <span class="badge intl">🌍 International · Multi-use</span>
+        </div>
+        <div class="card-meta">HeyGen Community · Global · Social + Brand + Ad</div>
+        <p>HeyGen's public avatar video gallery shows real creator outputs across social media ads, product explainers, UGC-style testimonials, and talking-head reels. The Avatar IV model (launched Aug 2025) features full-body motion and micro-expressions — the benchmark reference for current AI avatar realism.</p>
+        <div class="tag-row">
+          <span class="tag unique">Full-body motion (Avatar IV)</span>
+          <span class="tag unique">Micro-expressions</span>
+          <span class="tag">Social-media native</span>
+          <span class="tag">UGC-style output</span>
+          <span class="tag">175+ language dub</span>
+        </div>
+        <div class="card-links">
+          <a class="btn-link" href="https://community.heygen.com/public/collections/avatar-videos" target="_blank">▶ Avatar Gallery</a>
+          <a class="btn-link" href="https://www.heygen.com/blog/talking-head-video" target="_blank">📖 Format Guide</a>
+        </div>
+      </div>
+
+      <!-- Dhiva Logu / AITuber -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Dhiva Logu — "AITuber" Creator</div>
+          <span class="badge india">🇮🇳 India · Creator</span>
+        </div>
+        <div class="card-meta">LinkedIn · Tamil / English · AI content creation</div>
+        <p>An early Indian creator publicly building an "AITuber" brand — combining AI avatar tools with scripted content for YouTube. Represents the emerging trend of individual creators in India adopting the talking-head avatar workflow as a primary production method, without any live filming.</p>
+        <div class="tag-row">
+          <span class="tag unique">Solo AITuber workflow</span>
+          <span class="tag">Tamil + English</span>
+          <span class="tag">Faceless model</span>
+        </div>
+        <div class="card-links">
+          <a class="btn-link" href="https://www.linkedin.com/in/dhivalogu/" target="_blank">🔗 LinkedIn</a>
+        </div>
+      </div>
+
+      <!-- AI Food Talk / Media.io -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">AI Food Avatar Content (Media.io)</div>
+          <span class="badge brand">🥗 Food · Brand</span>
+        </div>
+        <div class="card-meta">Media.io · Global · Short-form food content</div>
+        <p>Media.io's AI Food Talk feature lets brands create animated, talking food/ingredient characters and AI avatar food presenters for Reels/Shorts. Directly relevant to Trulo Foods — demonstrates how food brands can build product explainer or "ingredient spotlight" content without on-camera talent.</p>
+        <div class="tag-row">
+          <span class="tag unique">Food/ingredient characters</span>
+          <span class="tag unique">Reels/Shorts native</span>
+          <span class="tag">Brand spokesperson format</span>
+        </div>
+        <div class="card-links">
+          <a class="btn-link" href="https://www.media.io/video-effects/ai-food-talk.html" target="_blank">🔗 See Tool</a>
+        </div>
+      </div>
+
+      <!-- CPG / Brand Avatar Ads -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">CPG Brand AI Avatar Ads (Creatify)</div>
+          <span class="badge brand">📦 CPG/FMCG · Marketing</span>
+        </div>
+        <div class="card-meta">Creatify.ai · Global · Performance ads</div>
+        <p>Creatify is purpose-built for product-URL-to-video ad creation. Drop a product URL → AI writes scripts → generates avatar talking-head ads. CPG/FMCG brands using this format have reported 45% better CPA and 73% better ROAS vs. traditional creative libraries. Useful benchmark for ad-format avatar content.</p>
+        <div class="tag-row">
+          <span class="tag unique">URL-to-ad in 2 min</span>
+          <span class="tag unique">Performance ad optimised</span>
+          <span class="tag">A/B variant generation</span>
+          <span class="tag">UGC-style</span>
+        </div>
+        <div class="card-links">
+          <a class="btn-link" href="https://creatify.ai/blog/ai-avatar-generator-create-talking-video-ads-in-2-minutes" target="_blank">📖 Format Overview</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- ─── CONTENT TYPE TAXONOMY ─── -->
+  <section id="types">
+    <div class="section-label">§ 2 · Content Type Taxonomy</div>
+    <h2>Types of Talking Head Avatar Content</h2>
+    <p class="section-desc">Six distinct content formats observed across creators. Each has different production needs, avatar requirements, and viewer expectations.</p>
+
+    <div class="type-grid">
+      <div class="type-card">
+        <div class="type-icon">📺</div>
+        <div class="type-name">AI News / Current Affairs Anchor</div>
+        <div class="type-desc">Avatar as daily presenter delivering scripted news. Indian examples: Sana (India Today), Lisa (OTV). Requires broadcast-grade realism and consistent avatar identity.</div>
+        <div class="type-traits">
+          <span class="type-trait">Daily cadence</span>
+          <span class="type-trait">High realism needed</span>
+          <span class="type-trait">Cultural styling</span>
+          <span class="type-trait">Teleprompter pacing</span>
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="type-icon">🎓</div>
+        <div class="type-name">Educational Explainer / EdTech</div>
+        <div class="type-desc">Avatar teaches a topic in structured format. Dominant in Indian finance (Finfluencer) and tech channels. Uses B-roll + avatar split-screen. Viewer trusts the avatar as an expert.</div>
+        <div class="type-traits">
+          <span class="type-trait">Script-heavy</span>
+          <span class="type-trait">On-screen text/graphics</span>
+          <span class="type-trait">Long-form (5–15 min)</span>
+          <span class="type-trait">Series format</span>
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="type-icon">📦</div>
+        <div class="type-name">Product Explainer / Demo</div>
+        <div class="type-desc">Avatar presents product features, benefits, or usage. Most common in SaaS, FMCG, and D2C brands. Short (60–120 sec), benefit-led script, avatar as spokesperson.</div>
+        <div class="type-traits">
+          <span class="type-trait">Short-form</span>
+          <span class="type-trait">Benefit-led</span>
+          <span class="type-trait">Brand-voiced</span>
+          <span class="type-trait">Multilingual dub</span>
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="type-icon">📱</div>
+        <div class="type-name">Social Ad / UGC-Style Avatar</div>
+        <div class="type-desc">Avatar mimics UGC creator energy — casual, direct-to-camera, authentic-feeling. Used for paid Instagram/TikTok/YouTube Shorts ads. Creatify and HeyGen are the go-to tools for this format.</div>
+        <div class="type-traits">
+          <span class="type-trait">9:16 vertical</span>
+          <span class="type-trait">Hook-first scripting</span>
+          <span class="type-trait">Multiple variants</span>
+          <span class="type-trait">A/B test-friendly</span>
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="type-icon">🏢</div>
+        <div class="type-name">Corporate Training / Internal Comms</div>
+        <div class="type-desc">Avatar delivers onboarding, compliance, or SOP content. Synthesia dominates this use case. Requires professional tone, brand avatar, and often multi-language versions for different geographies.</div>
+        <div class="type-traits">
+          <span class="type-trait">Enterprise format</span>
+          <span class="type-trait">Multilingual critical</span>
+          <span class="type-trait">Custom brand avatar</span>
+          <span class="type-trait">L&D platform integration</span>
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="type-icon">🎤</div>
+        <div class="type-name">Brand Spokesperson / Ambassador</div>
+        <div class="type-desc">A named, recurring AI character who represents the brand across all content — the "AI face" of the company. High investment, high reward. Requires custom avatar creation. Trulo Foods' likely endgame format.</div>
+        <div class="type-traits">
+          <span class="type-trait">Named recurring character</span>
+          <span class="type-trait">Custom avatar ($1K+ setup)</span>
+          <span class="type-trait">Cross-platform</span>
+          <span class="type-trait">Brand personality embedded</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 28px;">
+      <h3>Common Traits Across All Types</h3>
+      <div class="traits-grid">
+        <div class="trait-box">
+          <h4>✅ What's universal</h4>
+          <ul>
+            <li><span class="dot green"></span>Direct-to-camera framing (no side angles)</li>
+            <li><span class="dot green"></span>Script read at controlled pace (~130–150 wpm)</li>
+            <li><span class="dot green"></span>Neutral or slightly warm background / studio look</li>
+            <li><span class="dot green"></span>Subtitles / captions always present (for silent-scroll viewers)</li>
+            <li><span class="dot green"></span>No heavy gestures — hands mostly below frame or static</li>
+            <li><span class="dot green"></span>Consistent avatar across episodes (brand identity)</li>
+          </ul>
+        </div>
+        <div class="trait-box">
+          <h4>⚡ What makes each unique</h4>
+          <ul>
+            <li><span class="dot yellow"></span>News: Indian cultural styling, rapid delivery, teleprompter cadence</li>
+            <li><span class="dot yellow"></span>EdTech: Split-screen with slides/charts, deliberate slower pacing</li>
+            <li><span class="dot yellow"></span>Social ads: Casual wardrobe, hook in first 2 sec, CTA at end</li>
+            <li><span class="dot yellow"></span>Brand ambassador: Custom avatar name, branded frame, personality quirks</li>
+            <li><span class="dot yellow"></span>Corporate: Headset mics, formal attire, white/office backgrounds</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- ─── PLATFORM COMPARISON ─── -->
+  <section id="platforms">
+    <div class="section-label">§ 3 · Platform Comparison</div>
+    <h2>HeyGen vs Synthesia vs D-ID</h2>
+    <p class="section-desc">Evaluated on four criteria most relevant to Trulo Foods: Indian-accent voice quality, lip-sync accuracy, cost per minute of output video, and turnaround time.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:140px">Criterion</th>
+            <th class="platform-col">HeyGen <span class="winner-badge">Recommended</span></th>
+            <th class="platform-col">Synthesia</th>
+            <th class="platform-col">D-ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Indian-accent voice</strong></td>
+            <td>
+              <span class="score good">★★★★☆ Strong</span><br/>
+              <span style="font-size:12px;color:var(--muted)">175+ languages incl. Hindi. Hindi dubbing tested as "clean, well-synced." Multiple Indian accent toggles. Native voice cloning available (watch for accent drift on clones).</span>
+            </td>
+            <td>
+              <span class="score mid">★★★☆☆ Good</span><br/>
+              <span style="font-size:12px;color:var(--muted)">160+ languages, 1,000+ AI voices. Indian English supported but no specific accent quality test data available. Strong multilingual synthesis engine.</span>
+            </td>
+            <td>
+              <span class="score mid">★★★☆☆ Adequate</span><br/>
+              <span style="font-size:12px;color:var(--muted)">120+ languages/accents. Functional Indian English but narrower accent library. Less fine-tuned than HeyGen for regional nuance.</span>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Lip-sync accuracy</strong></td>
+            <td>
+              <span class="score good">★★★★½ Excellent</span><br/>
+              <span style="font-size:12px;color:var(--muted)">Avatar IV/V model: full-body motion + micro-expressions. Smooth Hindi/Indian English lip-sync. Best for social-native content. Slight issues reported on tonal Asian languages (not relevant for English).</span>
+            </td>
+            <td>
+              <span class="score good">★★★★★ Best-in-class multilingual</span><br/>
+              <span style="font-size:12px;color:var(--muted)">Leads independent lip-sync tests for French, Arabic, Japanese. Close second to HeyGen for English. Best choice if you need accurate lip-sync in many non-English languages simultaneously.</span>
+            </td>
+            <td>
+              <span class="score mid">★★★☆☆ Adequate</span><br/>
+              <span style="font-size:12px;color:var(--muted)">Works for most languages. Struggles with complex phoneme combos. Facial animation is a visible step below HeyGen/Synthesia — head movement can feel mechanical.</span>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Cost per minute</strong></td>
+            <td>
+              <span style="font-size:13px;font-weight:700;color:var(--text)">~$2.40 / min</span><br/>
+              <span style="font-size:12px;color:var(--muted)">Creator $24/mo = 200 gen credits = ~10 min Avatar IV video. Extra credits: $5/added min. Pro $99/mo gives ~50 min. Free tier: 3 videos/mo up to 3 min each (720p).</span>
+            </td>
+            <td>
+              <span style="font-size:13px;font-weight:700;color:var(--text)">~$1.80–$2.90 / min</span><br/>
+              <span style="font-size:12px;color:var(--muted)">Starter $18/mo (annual) = 10 min/mo → $1.80/min. Monthly billing at $29 → $2.90/min. Creator tier $53–67/mo = 30 min. Custom avatar add-on: $1,000/year.</span>
+            </td>
+            <td>
+              <span style="font-size:13px;font-weight:700;color:var(--text)">$0.60–$4.60 / min</span><br/>
+              <span style="font-size:12px;color:var(--muted)">Lite $5.99 = 10 min → $0.60/min (but no commercial rights). Pro $49.99 = 15 min → $3.33/min. Advanced $299 = 65 min → $4.60/min. Commercial rights only on Advanced plan — major cost bump.</span>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Turnaround time</strong></td>
+            <td>
+              <span class="score good">⚡ Near real-time</span><br/>
+              <span style="font-size:12px;color:var(--muted)">Minutes for standard videos. Slightly longer for Avatar IV (premium model). No manual review step.</span>
+            </td>
+            <td>
+              <span class="score good">⚡ Near real-time</span><br/>
+              <span style="font-size:12px;color:var(--muted)">Comparable to HeyGen. Minutes per video. Enterprise workflows may add review steps.</span>
+            </td>
+            <td>
+              <span class="score good">⚡ Near real-time</span><br/>
+              <span style="font-size:12px;color:var(--muted)">Fast generation but users report failed generation issues (Trustpilot: 1.5/5 — reliability concerns).</span>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Free tier</strong></td>
+            <td>3 videos/mo, up to 3 min, 720p, watermarked</td>
+            <td>Free plan: 3 videos/mo up to 5 min, watermarked</td>
+            <td>14-day trial only. No ongoing free tier.</td>
+          </tr>
+          <tr>
+            <td><strong>Custom avatar</strong></td>
+            <td>Available from Creator+ plan via 2-min photo/video upload</td>
+            <td>Studio Express-1: $1,000/year add-on. High-quality custom avatar.</td>
+            <td>Available on Pro+ plans. Portrait-only output limits format flexibility.</td>
+          </tr>
+          <tr>
+            <td><strong>Best for</strong></td>
+            <td>Social ads, Reels/Shorts, brand spokesperson, multilingual product content</td>
+            <td>Corporate L&D, enterprise training, multilingual publishing at scale</td>
+            <td>Experimental / lo-fi talking photos. Not recommended for professional marketing at current pricing + reliability.</td>
+          </tr>
+          <tr>
+            <td><strong>Reliability / trust</strong></td>
+            <td><span class="score good">Strong</span> — widely used by major brands</td>
+            <td><span class="score good">Strong</span> — enterprise-focused, SOC 2 equivalent</td>
+            <td><span class="score bad">Weak</span> — Trustpilot 1.5/5, billing complaints, failed generations</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- ─── VOICE TOOLS ─── -->
+  <section id="voices">
+    <div class="section-label">§ 4 · Voice Tool Comparison</div>
+    <h2>ElevenLabs vs Murf</h2>
+    <p class="section-desc">Evaluated on Indian English naturalness, voice cloning access, and free tier usability. These tools can be used standalone or piped into HeyGen/Synthesia via audio upload.</p>
+
+    <div class="voice-grid">
+      <div class="voice-card winner">
+        <div class="voice-name">ElevenLabs <span class="winner-badge">Recommended</span></div>
+        <div class="voice-tagline">Best-in-class realism · Developer-friendly · Strong Indian English</div>
+        <div class="voice-row">
+          <span class="voice-row-label">Indian English quality</span>
+          <span class="voice-row-val"><span class="score good">★★★★★</span> 89.6% naturalness</span>
+        </div>
+        <div class="voice-row">
+          <span class="voice-row-label">Indian languages</span>
+          <span class="voice-row-val">11 Indian regional languages via Multilingual V3 (Hindi, Tamil, Malayalam, Kannada, Telugu, Gujarati + more)</span>
+        </div>
+        <div class="voice-row">
+          <span class="voice-row-label">Voice cloning</span>
+          <span class="voice-row-val">Instant clone: Starter ($5/mo). Pro clone: Creator ($11/mo). High-fidelity from short samples.</span>
+        </div>
+        <div class="voice-row">
+          <span class="voice-row-label">Free tier</span>
+          <span class="voice-row-val">10,000 credits/mo ≈ 10 min high-quality TTS. No download on free (API only).</span>
+        </div>
+        <div class="voice-row">
+          <span class="voice-row-label">Pricing</span>
+          <span class="voice-row-val">Free → Starter $5 → Creator $11/mo → Pro $99/mo</span>
+        </div>
+        <div class="voice-row">
+          <span class="voice-row-label">Best used for</span>
+          <span class="voice-row-val">Generate voiceover first → upload audio to HeyGen for lip-sync. Avoids accent drift issue.</span>
+        </div>
+        <div class="voice-row">
+          <span class="voice-row-label">Weakness</span>
+          <span class="voice-row-val">No built-in video editor or presentation sync. Pure audio tool — needs pairing with avatar platform.</span>
+        </div>
+      </div>
+
+      <div class="voice-card">
+        <div class="voice-name">Murf AI</div>
+        <div class="voice-tagline">Structured workflow · Good Indian English · Voice cloning locked to enterprise</div>
+        <div class="voice-row">
+          <span class="voice-row-label">Indian English quality</span>
+          <span class="voice-row-val"><span class="score mid">★★★★☆</span> Good, slightly synthetic</span>
+        </div>
+        <div class="voice-row">
+          <span class="voice-row-label">Indian languages</span>
+          <span class="voice-row-val">Indian English + Hindi, Tamil, Bengali among 35+ languages. Non-English voices ~80–85% as natural as English.</span>
+        </div>
+        <div class="voice-row">
+          <span class="voice-row-label">Voice cloning</span>
+          <span class="voice-row-val">Enterprise only — starts at $75/mo for 5 users. Not accessible on individual plans.</span>
+        </div>
+        <div class="voice-row">
+          <span class="voice-row-label">Free tier</span>
+          <span class="voice-row-val">10 min generation, no download, no commercial use. Too limited for evaluation.</span>
+        </div>
+        <div class="voice-row">
+          <span class="voice-row-label">Pricing</span>
+          <span class="voice-row-val">Free → Creator Lite $19/mo (24hr/yr) → Creator Plus $33/mo (48hr/yr) → Business Lite $26/mo</span>
+        </div>
+        <div class="voice-row">
+          <span class="voice-row-label">Best used for</span>
+          <span class="voice-row-val">Teams wanting a built-in video/presentation sync workflow. Good for structured L&D or slide-based content.</span>
+        </div>
+        <div class="voice-row">
+          <span class="voice-row-label">Weakness</span>
+          <span class="voice-row-val">Voice cloning gated behind expensive enterprise tier. Realism gap vs. ElevenLabs is noticeable on Indian English.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Recommended Stack for Trulo Foods</div>
+      <p><strong>ElevenLabs Creator ($11/mo)</strong> for pro voice cloning of a branded Indian English voice → export audio → <strong>HeyGen Creator ($24/mo)</strong> for lip-sync + avatar output → publish to Instagram Reels / YouTube Shorts. Total entry cost: <strong>~$35/mo</strong> for a production-ready talking head workflow.</p>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- ─── SIMILAR & ADJACENT TOOLS ─── -->
+  <section id="similar">
+    <div class="section-label">§ 5 · Similar & Adjacent Tools</div>
+    <h2>Other Tools Worth Knowing</h2>
+    <p class="section-desc">Beyond the three evaluated platforms — tools that have emerged as relevant, especially for the Indian market or food/CPG use cases.</p>
+
+    <div class="card-grid">
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Hedra AI</div>
+          <span class="badge intl">🌍 Avatar · 2026 Breakout</span>
+        </div>
+        <p>Called the "dark horse of 2026" for talking-head realism from a single image. Strong for creators who prioritize photorealistic output over large avatar libraries. Worth testing as a HeyGen alternative.</p>
+        <div class="card-links">
+          <a class="btn-link" href="https://www.truefan.ai/blogs/hedra-ai-review-india-2026essential" target="_blank">📖 India Review</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Creatify</div>
+          <span class="badge brand">📦 Ad-focused</span>
+        </div>
+        <p>Built specifically for performance ads. Paste a product URL → AI generates scripts → avatar talking-head ads ready in 2 min. Best for rapid A/B ad testing. CPG brands report 45% better CPA.</p>
+        <div class="card-links">
+          <a class="btn-link" href="https://creatify.ai" target="_blank">🔗 creatify.ai</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">InVideo AI</div>
+          <span class="badge india">🇮🇳 India-friendly</span>
+        </div>
+        <p>Popular with Indian creators. Includes an AI avatar generator alongside its full video editor. Lower price point than HeyGen. Good starting point for experimentation before committing to HeyGen.</p>
+        <div class="card-links">
+          <a class="btn-link" href="https://invideo.io/make/ai-avatar-generator/" target="_blank">🔗 InVideo AI</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">TrueFan Studio (Voomo)</div>
+          <span class="badge india">🇮🇳 India-first</span>
+        </div>
+        <p>India-built platform with AI avatars designed for Hinglish content, 175+ language support, and culturally resonant avatar designs (Gunika, Annie, Aryan). Specifically built for Indian creator needs — Hinglish phoneme accuracy, Indian gestures.</p>
+        <div class="card-links">
+          <a class="btn-link" href="https://www.voomo.ai/ai-indian-avatar" target="_blank">🔗 Voomo Indian Avatars</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Captions.ai</div>
+          <span class="badge intl">🌍 Social-first</span>
+        </div>
+        <p>Focused on talking-head videos for social media. Includes auto-captions, B-roll, facecam enhancement, and AI clone — all in one mobile/web app. Good for creators who want a fast, all-in-one social video workflow.</p>
+        <div class="card-links">
+          <a class="btn-link" href="https://captions.ai/solutions/talking-head-videos" target="_blank">🔗 captions.ai</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Jogg AI</div>
+          <span class="badge india">🇮🇳 Ed-tech / India</span>
+        </div>
+        <p>Niche player that has carved a space in Indian ed-tech and corporate training by focusing on avatar consistency across episodic content — useful for brands building a recurring AI host identity across a video series.</p>
+        <div class="card-links">
+          <a class="btn-link" href="https://www.truefan.ai/blogs/faceless-youtube-channel-ai-india-2026" target="_blank">📖 Context</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:32px;">
+      <h3>Voice Tool Alternatives</h3>
+      <div class="card-grid" style="margin-top:14px;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Cartesia</div>
+            <span class="badge intl">⚡ Low-latency</span>
+          </div>
+          <p>Emerging voice AI with ultra-low-latency TTS — relevant if building real-time interactive avatar experiences. API-first.</p>
+          <div class="card-links"><a class="btn-link" href="https://cartesia.ai/vs/elevenlabs-vs-murf" target="_blank">🔗 Cartesia</a></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">VEED.io Voice</div>
+            <span class="badge intl">🌍 All-in-one</span>
+          </div>
+          <p>VEED combines avatar generation + AI voiceover + auto-captions in one tool. Lower ceiling on voice quality but zero context-switching for social creators.</p>
+          <div class="card-links"><a class="btn-link" href="https://www.veed.io/tools/ai-avatar" target="_blank">🔗 VEED Avatars</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <div style="color:var(--muted);font-size:12px;text-align:center;padding:8px 0 0;">
+    Trulo Foods Internal · Talking Head Avatar SOP Research · Prepared May 2026 · Data sourced from platform docs, independent reviews, and creator case studies.
+  </div>
+
+</main>
+
+</body>
+</html>
